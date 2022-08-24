@@ -1,0 +1,44 @@
+<template>
+
+    <lightning-card title="Convert Currency to Euros and US Dollars">
+        <lightning-spinner if:true={isLoading} class="slds-is-fixed" variant="brand" alternative-text="Loading"
+            size="large">
+        </lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-input type="number" label="Enter Amount to convert" formatter="currency"
+                    onchange={handleAmtChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="around-small" if:true={showConvertedAmt}>
+                <h1><b>Converted Amount</b></h1>
+                <p>
+                    USD: {convertedAmtMap.USD}
+                </p>
+                <p>
+                    EURO: {convertedAmtMap.EUR}
+                </p>
+            </lightning-layout-item>
+        </lightning-layout>
+        <p slot="footer">
+            <lightning-button label="Convert" onclick={handleConvert}></lightning-button>
+        </p>
+    </lightning-card>
+    <lightning-card title="Conversion histories">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" padding="around-small">
+                FROM
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="around-small">
+                TO
+            </lightning-layout-item>
+            <template for:each={histories} for:item="history">
+                <lightning-layout-item size="6" padding="around-small" key={history.Id}>
+                    {history.From__c}
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small" key={history.Id}>
+                    {history.To__c}
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+    </lightning-card>
+</template>
